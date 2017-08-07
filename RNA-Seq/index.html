@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Introduction to RNA-seq Data Analysis</title>
+  <meta name="description" content="">
+  <meta name="author" content="Jian Yu">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/reveal.min.css">
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/theme/default.css" id="theme">
+  <link rel="stylesheet" href="libraries/highlighters/prettify/css/tomorrow.css" id="theme">
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->  <link rel="stylesheet" href = "assets/css/ribbons.css">
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section class='' data-state='' id='slide-1'>
+  <h2>Introduction to RNA-seq Data Analysis</h2>
+  <p><small> Our practice in <a href="http://www.mhs.biol.ethz.ch/research/ciaudo.html">Ciaudo Lab </a> </small> </p>
+
+<h1> </h1> 
+
+<p><small> Jian Yu </small></p>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  
+
+  <aside class='notes'>
+    <p>Some notes on the first slide</p>
+
+  </aside>
+</section>
+<section class='' data-state='' id='slide-2'>
+  <h2>Introduction</h2>
+  <ul class = "build incremental">
+<li>What is RNA-seq?
+
+<ul>
+<li><small> Using next-generation sequencing (NGS) to reveal the presence and quantity of RNA in a biological sample at a given moment </small> 
+<h1> </h1><br></li>
+</ul></li>
+<li>Bulk mRNA-seq 
+<h1> </h1><br></li>
+<li>Advantages
+
+<ul>
+<li><small> High sensitivity </small> </li>
+<li><small> Unbiased </small> </li>
+<li><small> Novel transcripts </small> </li>
+</ul></li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-3'>
+  <h2>Formulate your question</h2>
+  <ul class = "build incremental">
+<li>Two group comparison: WT vs KO 
+<h1> </h1><br></li>
+<li>Nested Design: Treatment effect in different cancer subtypes
+<h1> </h1><br></li>
+<li>Time series: Gene expression pattern along embryonic development</li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-4'>
+  <h2>Discussion</h2>
+  <ul class = "build incremental">
+<li>With your PI: budget, schedule 
+<h1> </h1><br></li>
+<li>Sequencing facility: protocol, timeslot, quotation 
+<h1> </h1><br></li>
+<li>IT support: data transimisson/storage 
+<h1> </h1><br></li>
+<li>Bioinformaticians: experiment design, data analysis </li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-5'>
+  <h2>Experiment Design</h2>
+  <ul class = "build incremental">
+<li> What is your biological interest?
+
+<ul>
+<li><small> Differentially Expressed Genes/Transcripts? </small></li>
+<li><small> Differential Splicing Events? </small></li>
+<li><small> Noncoding RNAs? </small></li>
+<li><small> Fusion Transcripts? </small>
+<h1> </h1><br></li>
+</ul></li>
+<li>Paired sample?
+<h1> </h1><br></li>
+<li>Batch Effect?
+<h1> </h1><br></li>
+<li>How many replicates? 3?</li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-6'>
+  <h2>Protocol Choice</h2>
+  <ul class = "build incremental">
+<li>PolyA/Ribosome-? 
+<h1> </h1><br></li>
+<li>Single-end/Paired-end? 
+<h1> </h1><br></li>
+<li>Stranded/Non-stranded?
+<h1> </h1><br></li>
+<li>Read Size?
+<h1> </h1><br></li>
+<li>Sequencing Depth?</li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-7'>
+  <h2>Case Report</h2>
+  <ul class = "build incremental">
+<li>Experiment Design: Hepatocellular Carcinoma, 4 samples
+<h1> </h1><br></li>
+<li>Interesting points: point mutation in mRNA, miss-regulated genes, and choromosome re-arrangments
+<h1> </h1><br></li>
+<li>Add adjacent tissue as paired controls
+<h1> </h1><br></li>
+<li>Double sequencing depth, and switch to paired-end
+<h1> </h1><br></li>
+<li>Increasing sample size from 4 to 12</li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-8'>
+  <h2>Quality Check</h2>
+  <p><a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a></p>
+
+<h1> </h1>
+
+<p><img src="Fig3.png" alt="Drawing" style="width: 800px;height=320px"/></p>
+
+</section>
+<section class='' data-state='' id='slide-9'>
+  <h2>Quality Check</h2>
+  <p><img src="Fig4.png" alt="Drawing" style="width: 900px;height=320px"/></p>
+
+</section>
+<section class='' data-state='' id='slide-10'>
+  <h2>Quality Check</h2>
+  <p><img src="Fig5.png" alt="Drawing" style="width: 900px;height=320px"/></p>
+
+<h1> </h1>
+
+<p><a href="http://www.usadellab.org/cms/index.php?page=trimmomatic">Trimmomatic</a></p>
+
+</section>
+<section class='' data-state='' id='slide-11'>
+  <h2>Preprocessing</h2>
+  <p><img src="Fig6.png" alt="Drawing" style="width: 800px;height=320px"/></p>
+
+</section>
+<section class='' data-state='' id='slide-12'>
+  <h2>Data Preprocessing is <strong>Essential</strong></h2>
+  <ul class = "build incremental">
+<li>Bad Data often present</li>
+<li>Low-quality sequence (artifacts)</li>
+<li><p>Adapter Contamination</p></li>
+<li><p>Analysis of bad data should be avoided</p></li>
+<li><p>Is expensive: computing + man power</p></li>
+<li><p>Can compromise downstream analysis</p></li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-13'>
+  <h2>Mapping</h2>
+  <p><img src="Fig7.png" alt="Drawing" style="width: 900px;height=320px"/></p>
+
+</section>
+<section class='' data-state='' id='slide-14'>
+  <h2>Mapping</h2>
+  <p>For RNA-seq, gaps and mismatches should be allowed</p>
+
+<ul class = "build incremental">
+<li><p>QC after mapping</p></li>
+<li><p><a href="https://github.com/alexdobin/STAR">STAR</a></p></li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-15'>
+  <h2>Counting: <a href="http://bioinf.wehi.edu.au/featureCounts/">FeatureCounts</a></h2>
+  <p><img src="Fig8.png" alt="Drawing" style="width: 900px;height=320px"/></p>
+
+</section>
+<section class='' data-state='' id='slide-16'>
+  <h2>Choice of Gene Model: Ensembl</h2>
+  <p><img src="Fig9.png" alt="Drawing" style="width: 900px;height=320px"/></p>
+
+</section>
+<section class='' data-state='' id='slide-17'>
+  <h2>Statistical Modeling</h2>
+  <ul class = "build incremental">
+<li><p>There is no <q>correct model</q></p></li>
+<li><p>Models are approximations of the truth</p></li>
+<li><p>There is a <q>useful model</q></p></li>
+<li><p>Understanding the mechanisms of the system for better choices of model alternatives</p></li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-18'>
+  <h2>Statistical Modeling</h2>
+  <ul class = "build incremental">
+<li><p>Negative Binomial Model</p></li>
+<li><p>Shrinkage is necessary
+<img src="Fig10.png" alt="Drawing" style="width: 900px;height=320px"/></p></li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-19'>
+  <h2>Statistical Modeling</h2>
+  <ul class = "build incremental">
+<li><p><a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a></p></li>
+<li><p>Shrinkage</p></li>
+<li><p>Complex Experiment Design</p></li>
+<li><p>Single Replicate</p></li>
+<li><p>Outlier Detection</p></li>
+<li><p>Independent Filtering</p></li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-20'>
+  <h2>Multiple Testing Correction</h2>
+  <ul class = "build incremental">
+<li><p>We are doing high-throughput experiments which compare thousands of units simultaneously</p></li>
+<li><p>At this scale, rare events could happen <em>just by chance</em></p></li>
+<li><p>Event A: 1 in 1000 chance of happening (p=0.001)</p></li>
+<li><p>And the statistical test performed for 2 &times; 10<sup>4</sup> times</p></li>
+<li><p>20 occurrence of false positives, even though using a <q>very strict</q> p-value</p></li>
+<li><p><strong>NEVER BELIEVE</strong>  raw p-value in high-throughput experiments, use adjusted P-value or FDR</p></li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-21'>
+  <h2>Alternative Splicing</h2>
+  <p><img src="Fig11.png" alt="Drawing" style="width: 900px;height=320px"/></p>
+
+</section>
+<section class='' data-state='' id='slide-22'>
+  <h2>Alternative Splicing</h2>
+  <ul class = "build incremental">
+<li><p>Isoform-centric</p></li>
+<li><p>Exon-centric: <a href="http://bioconductor.org/packages/release/bioc/html/DEXSeq.html">DEXSeq</a></p></li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-23'>
+  <h2>A Working Pipeline</h2>
+  <ul class = "build incremental">
+<li><a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FASTQC</a>: Quality Control</li>
+<li><a href="http://www.usadellab.org/cms/index.php?page=trimmomatic">Trimmomatic</a>: Adaptor Removal</li>
+<li><a href="https://github.com/alexdobin/STAR">STAR</a>: Mapping</li>
+<li><a href="http://bioinf.wehi.edu.au/featureCounts/">FeatureCounts</a>: Counting</li>
+<li><a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a>: Differential Expression</li>
+<li><a href="http://bioconductor.org/packages/release/bioc/html/DEXSeq.html">DEXSeq</a>: Differential Splicing</li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-24'>
+  <h2>THANKS FOR YOUR ATTENTION</h2>
+  <p>acknowledgements: </p>
+
+<ul>
+<li>SIS, Michal Okoniewski, </li>
+<li><a href="http://www.mhs.biol.ethz.ch/research/ciaudo.html">Ciaudo Lab </a></li>
+</ul>
+
+<script>
+  $('ul.incremental li').addClass('fragment')
+</script>
+  
+
+</section>
+    </div>
+  </div>
+</body>
+  <script src="libraries/frameworks/revealjs/lib/js/head.min.js"></script>
+  <script src="libraries/frameworks/revealjs/js/reveal.min.js"></script>
+  <script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    theme: Reveal.getQueryHash().theme || 'default', 
+    transition: Reveal.getQueryHash().transition || 'fade', 
+    dependencies: [
+    // Cross-browser shim that fully implements classList -
+    // https://github.com/eligrey/classList.js/
+      { src: 'libraries/frameworks/revealjs/lib/js/classList.js', condition: function() { return !document.body.classList;}},
+      // Zoom in and out with Alt+click
+      { src: 'libraries/frameworks/revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Speaker notes
+      { src: 'libraries/frameworks/revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Remote control your reveal.js presentation using a touch device
+      //{ src: 'libraries/frameworks/revealjs/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+  });
+  </script>  <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script src='libraries/highlighters/prettify/js/lang-r.js'></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint linenums";
+  }
+  prettyPrint();
+</script>
+<!-- End Google Prettify --> 
+
+</html>
